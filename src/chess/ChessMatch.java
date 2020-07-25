@@ -24,14 +24,24 @@ public class ChessMatch {
 		return mat;
 	}
 	
-	private void placeNewPeace(char column, int row, ChessPiece piece) {
+	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
 	}
 	
 	private void initialSetup() {
-		placeNewPeace('b', 6, new Rook(board, Color.BRANCO) );
-		placeNewPeace('e', 8, new King(board, Color.PRETO) );
-		placeNewPeace('e', 1, new King(board, Color.BRANCO) );
+		placeNewPiece('c', 1, new Rook(board, Color.BRANCO));
+        placeNewPiece('c', 2, new Rook(board, Color.BRANCO));
+        placeNewPiece('d', 2, new Rook(board, Color.BRANCO));
+        placeNewPiece('e', 2, new Rook(board, Color.BRANCO));
+        placeNewPiece('e', 1, new Rook(board, Color.BRANCO));
+        placeNewPiece('d', 1, new King(board, Color.BRANCO));
+
+        placeNewPiece('c', 7, new Rook(board, Color.PRETO));
+        placeNewPiece('c', 8, new Rook(board, Color.PRETO));
+        placeNewPiece('d', 7, new Rook(board, Color.PRETO));
+        placeNewPiece('e', 7, new Rook(board, Color.PRETO));
+        placeNewPiece('e', 8, new Rook(board, Color.PRETO));
+        placeNewPiece('d', 8, new King(board, Color.PRETO));
 	}
 
 }

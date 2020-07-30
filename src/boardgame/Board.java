@@ -7,7 +7,7 @@ public class Board {
 
 	public Board(int rows, int columns) {
 		if (rows < 1 || columns < 1) {
-			throw new BoardExcepition("Erro ao criar o tabuleiro: é necessario ter ao menos 1 linha e 1 coluna");
+			throw new BoardException("Erro ao criar o tabuleiro: é necessario ter ao menos 1 linha e 1 coluna");
 		}
 		this.rows = rows;
 		this.columns = columns;
@@ -24,25 +24,40 @@ public class Board {
 
 	public Piece piece(int row, int column) {
 		if(!posictionExists(row, column)) {
-			throw new BoardExcepition("Posição não existe no tabuleiro");
+			throw new BoardException("Posição não existe no tabuleiro");
 		}
 		return pieces[row][column];
 	}
 
 	public Piece piece(Position position) {
 		if(!posictionExists(position)) {
-			throw new BoardExcepition("Posição não existe no tabuleiro");
+			throw new BoardException("Posição não existe no tabuleiro");
 		}
 		return pieces[position.getRow()][position.getColumn()];
 	}
 
 	public void placePiece(Piece piece, Position position) {
 		if(thereIsAPiece(position)) {
-			throw new BoardExcepition("Já existe uma peça nesta posição "+position);
+			throw new BoardException("Já existe uma peça nesta posição "+position);
 		} 		
 		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
 	}
+	
+	
+	public Piece removePiecePosition(Position position) {
+		if(!posictionExists(position)) {
+			throw new BoardException("Posição não existe no tabuleiro");
+		}
+		if(piece(position) == null ) {
+			return null;
+		}
+		Piece aux = piece(position);
+		aux.position = null;
+		pieces[position.getRow()][position.getColumn()] = null;
+		return aux;
+	}
+	
 
 	private Boolean posictionExists(int row, int column) {
 		return row >= 0 && row < rows && column >= 0 && column < columns;
@@ -54,7 +69,7 @@ public class Board {
 
 	public Boolean thereIsAPiece(Position position) {
 		if(!posictionExists(position)) {
-			throw new BoardExcepition("Posição não existe no tabuleiro");
+			throw new BoardException("Posição não existe no tabuleiro");
 		}
 		return piece(position) != null;
 	}
